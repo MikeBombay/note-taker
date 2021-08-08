@@ -26,7 +26,7 @@ function updateDb() {
         if (err) {
             console.log("error")
             return console.log(err);
-        }
+        }})};
 //listener
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
