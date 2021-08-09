@@ -3,6 +3,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const db = require("./db/db")
+const router = require("express").Router();
+
 
 //initialize app, data parsing
 const app = express();
@@ -27,6 +29,19 @@ function updateDb() {
             console.log("error")
             return console.log(err);
         }})};
+
+
+
+//Routes
+
+router.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
+});
+
+router.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
 //listener
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
