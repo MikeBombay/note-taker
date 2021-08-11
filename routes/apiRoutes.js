@@ -1,6 +1,7 @@
 //dependencies
 const router = require("express").Router();
 const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 
 //reads notes from db.json and returns 
 router.get("/notes", (req, res) => {
@@ -9,13 +10,11 @@ router.get("/notes", (req, res) => {
 });
 
 //post new note to page, assign id, pushes to variable and writes to db
-//**additional note: I installed uuid and it seems to be automatically applying unique IDs 
-//**to my notes, which seems to be over-riding what I have coded here, this seems like a
-//*good problem to have so I lef it in
+
 router.post("/notes", (req, res) => {
   let newNote = req.body;
-  newNote.id = notes.length.toString();
   let notes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+  newNote.id = uuidv4();
   notes.push(newNote);
   fs.writeFileSync("./db/db.json", JSON.stringify(notes));
   return res.json(notes);
